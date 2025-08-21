@@ -1,0 +1,36 @@
+#!/bin/sh
+
+echo "🔧 Running cargo fmt..."
+cd contracts
+cargo fmt --all
+
+if [ $? -ne 0 ]; then
+  echo "❌ Cargo fmt failed. Please fix formatting errors."
+  exit 1
+fi
+
+echo "📎 Running cargo clippy..."
+cargo clippy --all-targets --all-features -- -D warnings
+
+if [ $? -ne 0 ]; then
+  echo "❌ Cargo clippy found issues. Please fix them before committing."
+  exit 1
+fi
+
+echo "🔨 Running cargo check..."
+cargo check --all-targets --all-features
+
+if [ $? -ne 0 ]; then
+  echo "❌ Cargo check failed. Please fix build errors before committing."
+  exit 1
+fi
+
+echo "🧪 Running cargo test..."
+cargo test
+
+if [ $? -ne 0 ]; then
+  echo "❌ Tests failed. Please fix failing tests before committing."
+  exit 1
+fi
+
+echo "✅ All Rust checks passed! Code formatted and ready to commit..."
