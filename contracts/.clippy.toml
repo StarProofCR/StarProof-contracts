@@ -1,0 +1,14 @@
+# Clippy configuration for Rust project
+msrv = "1.70.0"
+
+# Allow certain lints that might be too pedantic for this project
+allow-unwrap-in-tests = true
+allow-dbg-in-tests = true
+
+# Deny certain lints to maintain code quality
+warn-on-all-wildcard-imports = true
+
+# Additional restrictions
+avoid-breaking-exported-api = true
+disallowed-methods = []
+disallowed-types = []
